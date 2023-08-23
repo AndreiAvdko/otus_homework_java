@@ -1,8 +1,7 @@
-package ru.otus;
+package ru.otus.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class CustomUtils {
@@ -10,6 +9,15 @@ public class CustomUtils {
         for (int i = 0; i < 100; i++) {
             System.out.println("");
         }
+    }
+
+    public static String input(BufferedReader reader) {
+        try {
+            return reader.readLine().toUpperCase().strip();
+        } catch (IOException e) {
+            System.out.println("Ошибка ввода!!!");
+        }
+        return null;
     }
 
     public static void printMenu() {

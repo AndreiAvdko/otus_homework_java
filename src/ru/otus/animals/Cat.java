@@ -1,6 +1,8 @@
-package ru.otus;
+package ru.otus.animals;
 
-public class Cat extends Animal{
+import ru.otus.animals.Animal;
+
+public class Cat extends Animal {
     public Cat(String name, String color, int age, int weight) {
         super(name, color, age, weight);
     }

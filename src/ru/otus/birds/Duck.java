@@ -1,4 +1,6 @@
-package ru.otus;
+package ru.otus.birds;
+
+import ru.otus.animals.Animal;
 
 public class Duck extends Animal implements Flying {
     public Duck(String name, String color, int age, int weight) {

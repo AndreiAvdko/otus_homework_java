@@ -1,5 +1,11 @@
 package ru.otus;
 
+import ru.otus.animals.*;
+import ru.otus.utils.AnimalFactory;
+import ru.otus.utils.AnimalType;
+import ru.otus.utils.Command;
+import ru.otus.utils.CustomUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,11 +23,11 @@ public class Main {
         while(true) {
             CustomUtils.cleanConsole();
             CustomUtils.printMenu();
-            userInput = reader.readLine().toUpperCase().strip();
-            if (Command.EXIT.toString().equals(userInput)) {
+            userInput = CustomUtils.input(reader);
+            if (Command.EXIT.name().equals(userInput)) {
                 break;
             }
-            if (Command.LIST.toString().equals(userInput)) {
+            if (Command.LIST.name().equals(userInput)) {
                 CustomUtils.cleanConsole();
                 if (animals.isEmpty()) {
                     System.out.println("Список животных пока пуст.");
@@ -37,22 +43,22 @@ public class Main {
                 System.out.println("---------------------------------");
                 CustomUtils.pressAnyKey();
             }
-            if (Command.ADD.toString().equals(userInput)) {
+            if (Command.ADD.name().equals(userInput)) {
                 CustomUtils.cleanConsole();
-                System.out.println(Command.ADD.toString());
+                System.out.println(Command.ADD.name());
                 System.out.println("Какое животное вы хотите добавить? (Введите CAT/DOG/DUCK)");
-                userInput = reader.readLine().toUpperCase().strip();
+                userInput = CustomUtils.input(reader);
                 if (!userInput.equals("CAT") && !userInput.equals("DOG") && !userInput.equals("DUCK")) {
                     System.out.println("Жаль, но такое животное добавить нельзя...");
                 } else {
                     System.out.println("Введите имя животного:");
-                    inputAnimalName = reader.readLine();
+                    inputAnimalName = CustomUtils.input(reader);
                     System.out.println("Введите цвет животного:");
-                    inputAnimalColor = reader.readLine();
+                    inputAnimalColor = CustomUtils.input(reader);
                     System.out.println("Введите возраст животного:");
                     while(true) {
                         try {
-                            inputAnimalAge = Integer.parseInt(reader.readLine());
+                            inputAnimalAge = Integer.parseInt(CustomUtils.input(reader));
                             break;
                         } catch (NumberFormatException e) {
                             System.out.println("Возникли проблемы с вводом возраста животного.");
@@ -62,36 +68,19 @@ public class Main {
                     System.out.println("Введите вес животного:");
                     while (true) {
                         try {
-                            inputAnimalWeight = Integer.parseInt(reader.readLine());
+                            inputAnimalWeight = Integer.parseInt(CustomUtils.input(reader));
                             break;
                         } catch (NumberFormatException e) {
                             System.out.println("Возникли проблемы с вводом веса животного.");
                             System.out.println("Попробуйте ещё раз:");
                         }
                     }
-                    switch (userInput) {
-                        case "CAT": CustomUtils.cleanConsole();
-                                    System.out.println("Кот был добавлен в список животных");
-                                    animals.add(new Cat(inputAnimalName, inputAnimalColor, inputAnimalAge, inputAnimalWeight));
-                                    System.out.print("Вызов метода say() ---> ");
-                                    animals.get(animals.size()-1).say();
-                                    CustomUtils.pressAnyKey();
-                                    break;
-                        case "DOG": CustomUtils.cleanConsole();
-                                    System.out.println("Пес был добавлен в список животных");
-                                    animals.add(new Dog(inputAnimalName, inputAnimalColor, inputAnimalAge, inputAnimalWeight));
-                                    System.out.print("Вызов метода say() ---> ");
-                                    animals.get(animals.size()-1).say();
-                                    CustomUtils.pressAnyKey();
-                                    break;
-                        case "DUCK": CustomUtils.cleanConsole();
-                                     System.out.println("Утка была добавлена в список животных");
-                                     animals.add(new Duck(inputAnimalName, inputAnimalColor, inputAnimalAge, inputAnimalWeight));
-                                     System.out.print("Вызов метода say() ---> ");
-                                     animals.get(animals.size()-1).say();
-                                     CustomUtils.pressAnyKey();
-                                     break;
-                    }
+                    CustomUtils.cleanConsole();
+                    System.out.println("Животное типа " + userInput + " было добавлено в список животных");
+                    animals.add(AnimalFactory.createAnimal(AnimalType.valueOf(userInput), inputAnimalName, inputAnimalColor, inputAnimalAge, inputAnimalWeight));
+                    System.out.print("Вызов метода say() ---> ");
+                    animals.get(animals.size()-1).say();
+                    CustomUtils.pressAnyKey();
                 }
             }
         }
