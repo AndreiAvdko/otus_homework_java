@@ -30,14 +30,14 @@ public class Main {
             if (Command.LIST.name().equals(userInput)) {
                 CustomUtils.cleanConsole();
                 if (animals.isEmpty()) {
-                    System.out.println("Список животных пока пуст.");
-                    CustomUtils.pressAnyKey();
                     CustomUtils.cleanConsole();
+                    System.out.println("Список животных пока пуст.");
                 } else {
                     System.out.println("---------------------------------");
                     System.out.println("Методы say() из списка животных: ");
                 }
                 for (Animal animal : animals) {
+
                     animal.say();
                 }
                 System.out.println("---------------------------------");
@@ -59,7 +59,12 @@ public class Main {
                     while(true) {
                         try {
                             inputAnimalAge = Integer.parseInt(CustomUtils.input(reader));
-                            break;
+                            if (inputAnimalAge <= 0) {
+                                System.out.println("Возраст животного не может быть отрицательным или быть равен 0");
+                                System.out.println("Введите возраст животного ещё раз:");
+                            } else {
+                                break;
+                            }
                         } catch (NumberFormatException e) {
                             System.out.println("Возникли проблемы с вводом возраста животного.");
                             System.out.println("Попробуйте ещё раз:");
@@ -69,7 +74,12 @@ public class Main {
                     while (true) {
                         try {
                             inputAnimalWeight = Integer.parseInt(CustomUtils.input(reader));
-                            break;
+                            if(inputAnimalWeight <= 0) {
+                                System.out.println("Вес животного не может быть отрицательным или быть равен 0");
+                                System.out.println("Введите вес животного ещё раз:");
+                            } else {
+                                break;
+                            }
                         } catch (NumberFormatException e) {
                             System.out.println("Возникли проблемы с вводом веса животного.");
                             System.out.println("Попробуйте ещё раз:");
