@@ -33,9 +33,9 @@ public abstract class Animal {
         boolean isExclusion = (this.age % 100 >= 11) && (this.age % 100 <= 14);
         if (ageLastNumber == 1)
             yearsStr = " год, ";
-        else if(ageLastNumber == 0 || ageLastNumber >= 5 && ageLastNumber <= 9)
+        else if(ageLastNumber == 0 || ageLastNumber >= 5)
             yearsStr = " лет, ";
-        else if(ageLastNumber >= 2 && ageLastNumber <= 4)
+        else if(ageLastNumber >= 2)
             yearsStr = " года, ";
         if (isExclusion)
             yearsStr = " лет, ";
